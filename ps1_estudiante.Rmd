@@ -1,40 +1,51 @@
 ---
-title: "Actividad 1: Regresión Simple"
-subtitle: "Econometría LECO — Dr. Francisco Cabrera"
-author: "Nombre del estudiante:"
-date: "`r Sys.Date()`"
+title: "Actividad 1. Regresión Simple"
+subtitle: "Econometría LECO"
+author: "Nombre:"
+date: ""
 output:
   pdf_document:
     latex_engine: xelatex
     number_sections: false
-    toc: false
 ---
 
 ```{r setup, include=FALSE}
-# ══════════════════════════════════════════════════
-# CONFIGURACIÓN INICIAL — No modificar este bloque
-# ══════════════════════════════════════════════════
-knitr::opts_chunk$set(
-  echo    = TRUE,   # Muestra tu código en el PDF
-  eval    = TRUE,   # Ejecuta el código
-  warning = FALSE,
-  message = FALSE
-)
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 ```
 
----
-
-> **Instrucciones generales:**
-> Completa cada sección escribiendo tu código en los bloques `{r}` y tus respuestas
-> en el espacio indicado con *[Tu respuesta aquí]*.
-> Al terminar, haz `Knit → PDF` y sube **este archivo `.Rmd`** y el **PDF generado**
-> a GitHub Classroom antes de la fecha límite.
+**Entregable**: Un archivo PDF (R-Markdown) contestando correctamente a las preguntas abajo presentadas, así como el archivo `.Rmd`. Ambos archivos deben subirse a GitHub antes de la fecha límite, grabados con su nombre.
 
 ---
 
-> **📌 Protocolo de uso de IA (Claude / ChatGPT)**
+> **⚙️ Paso 1 — Cómo crear tu proyecto en RStudio (hazlo una sola vez)**
 >
-> Antes de consultar a la IA, escribe en un comentario dentro del bloque de código:
+> 1. Acepta la tarea en el link que te compartió el profesor → se crea tu repositorio personal en GitHub
+> 2. Entra a tu repositorio → click en el botón verde **"Code"** → copia la URL (termina en `.git`)
+> 3. Abre RStudio → `File` → `New Project` → `Version Control` → `Git`
+> 4. Pega la URL → elige una carpeta en tu computadora → click `Create Project`
+> 5. Verifica que ves `ps1_estudiante.Rmd` en el panel de archivos (esquina inferior derecha)
+>
+> A partir de aquí, **siempre abre el Problem Set (PS)  desde ese proyecto** (`File` → `Open Project`), no desde el archivo directamente.
+
+---
+
+> **📤 Paso 2 — Cómo guardar tu avance en GitHub (hazlo cada vez que avances)**
+>
+> Guardar en tu computadora (`Ctrl+S`) **no** sube los cambios a GitHub. Para que el profesor y el asistente vean tu trabajo debes hacer:
+>
+> 1. Panel **Git** en RStudio (esquina superior derecha) → verás tus archivos modificados con una **M**
+> 2. Marca el **checkbox** junto a `ps1_estudiante.Rmd` (y el `.pdf` si ya compilaste)
+> 3. Click **Commit** → escribe un mensaje descriptivo, por ejemplo: `"avance P2b y P2c"`
+> 4. Click **Push** → tus cambios aparecen en GitHub
+>
+> **Recomendación:** haz commit y push al terminar cada pregunta, no solo al final.
+> Así queda registro de tu progreso y puedes recuperar versiones anteriores si algo falla.
+
+---
+
+> **📌 Paso 3 — Protocolo de uso de IA (Claude)**
+>
+> Antes de consultar al tutor IA, escribe en un comentario dentro de tu bloque de código:
 >
 > ```
 > # CONSULTA IA
@@ -42,321 +53,182 @@ knitr::opts_chunk$set(
 > # 2. Error o resultado inesperado que obtuve:
 > # 3. Lo que ya intenté:
 > ```
->
-> La IA **no debe escribir tu código**. Úsala para entender errores,
-> no para obtener soluciones.
+> Tienes **5 consultas por sesión**. La IA no escribirá tu código — te hará preguntas para que llegues a la respuesta tú mismo.
 
 ---
 
-## Pregunta 1. Derivación de OLS
+## 1. Derive OLS utilizando las condiciones de primer orden que surgen de $\sum(y_i - \hat{y}_i)^2 = 0$
 
-**Derive el estimador OLS a partir de las condiciones de primer orden de:**
-$$\min_{\hat{\beta}_0, \hat{\beta}_1} \sum_{i=1}^{n}(y_i - \hat{\beta}_0 - \hat{\beta}_1 x_i)^2$$
-
-*Muestra todos los pasos algebraicos. Usar notación LaTeX/Markdown directamente aquí.*
-
-**Respuesta:**
-
-[Tu derivación aquí. Ejemplo de sintaxis LaTeX:
-$\frac{\partial}{\partial \hat{\beta}_1} \sum(y_i - \hat{\beta}_0 - \hat{\beta}_1 x_i)^2 = 0$
-]
+*[Tu derivación aquí — usa LaTeX]*
 
 ---
 
-## Pregunta 2. Generando tus propios datos
+## 2. Genere sus propios datos para probar la teoría:
 
-### 2a. Genera los datos
+Asuma que la ecuación poblacional está dada por $y_i = 15 + 7X_i + \mu_i$, con el término estocástico ($\mu$) distribuido normalmente con media de cero. $X$ toma valores aleatorios. *Recuerde que en la práctica no observamos esta ecuación, pero podemos estimarla con una muestra de datos para X e Y.*
 
-La ecuación poblacional (que en la práctica **no observamos**) es:
-$$y_i = 15 + 7X_i + \mu_i, \quad \mu_i \sim N(0, 10^2)$$
+### a. Genere una muestra aleatoria de 100 observaciones y asuma una desviación estándar de 10:
 
 ```{r datos-2a}
-# COMPLETA: genera las variables aleatorias
-# Pista: usa rnorm() y runif() — escribe help(rnorm) en la consola de R si tienes dudas
+help(rnorm)
+help(runif)
 
 set.seed(123)
-
-x     <- # TU CÓDIGO AQUÍ
-error <- # TU CÓDIGO AQUÍ  (media=0, sd=10)
-y     <- # TU CÓDIGO AQUÍ  (ecuación poblacional)
+x     <- # TU CÓDIGO
+error <- # TU CÓDIGO
+y     <- # TU CÓDIGO
 ```
 
----
-
-### 2b. Scatterplot
+### b. Muestre un scatterplot de x e y, y describa brevemente la relación entre estas dos variables.
 
 ```{r scatter-2b}
-# COMPLETA: genera un scatterplot de x e y
-# Pista: usa plot(x, y, ...) con títulos descriptivos
-
-# TU CÓDIGO AQUÍ
+# TU CÓDIGO
 ```
 
-**Describe la relación entre X e Y:**
+*[Tu descripción aquí]*
 
-*[Tu respuesta aquí: ¿Es positiva o negativa? ¿Fuerte o débil? ¿Lineal?]*
-
----
-
-### 2c. Estimación OLS
+### c. Estime la regresión conforme al script abajo y escriba la ecuación estimada.
 
 ```{r regresion-2c}
-# COMPLETA: estima la regresión y muestra el resumen
-
-reg <- # TU CÓDIGO AQUÍ
+reg <- lm(y ~ x)
 summary(reg)
 anova(reg)
 
-# Suma de errores al cuadrado (SSE)
 sse <- sum((fitted(reg) - y)^2)
 sse
 ```
 
-**Escribe la ecuación estimada:**
+**Ecuación estimada:** $\hat{y}_i =$ *[Tu respuesta]*
 
-$$\hat{y}_i = \text{[intercepto]} + \text{[pendiente]} \cdot x_i$$
-
----
-
-### 2d. Interpretación del coeficiente
-
-*[Interpreta $\hat{\beta}_1$ en términos económicos. ¿Qué significa un cambio de una unidad en X?]*
-
----
-
-### 2e. Valor predicho cuando $X = \bar{x}$
-
-```{r prediccion-2e}
-# COMPLETA: calcula el valor predicho cuando X = media de x
-# Pista: ¿qué propiedad de OLS garantiza este resultado?
-
-x_barra   <- # TU CÓDIGO AQUÍ
-y_pred    <- # TU CÓDIGO AQUÍ
-y_pred
-```
-
-**¿Por qué este resultado no es casualidad? Explica la propiedad que lo garantiza:**
+### d. Interprete el coeficiente de regresión.
 
 *[Tu respuesta aquí]*
 
----
+### e. ¿Cuál es el valor predicho de $Y$ cuando $X = \bar{x}$?
 
-### 2f. $R^2$ manual
-
-```{r r2-manual-2f}
-# COMPLETA: calcula R² usando SST, SSR y SSE
-# Fórmula: R² = SSR/SST = 1 - SSE/SST
-
-sst <- # TU CÓDIGO AQUÍ   (variación total en y)
-ssr <- # TU CÓDIGO AQUÍ   (variación explicada)
-sse <- # TU CÓDIGO AQUÍ   (variación no explicada)
-
-r2_manual <- # TU CÓDIGO AQUÍ
-
-cat("R² calculado manualmente:", r2_manual, "\n")
-cat("R² reportado por lm():   ", summary(reg)$r.squared, "\n")
-cat("¿Coinciden?:", isTRUE(all.equal(r2_manual, summary(reg)$r.squared)), "\n")
+```{r prediccion-2e}
+# TU CÓDIGO
 ```
 
----
+*[Tu respuesta aquí]*
 
-### 2g. Comparación de valores ajustados vs. observados
+### f. Calcule manualmente $R^2$.
+
+```{r r2-manual-2f}
+# TU CÓDIGO
+
+# Verificación:
+cat("R² manual:      ", r2_manual, "\n")
+cat("R² de summary():", summary(reg)$r.squared, "\n")
+```
+
+### g. Ejecute:
 
 ```{r summary-2g}
 summary(fitted(reg))
 summary(y)
 ```
 
-**¿Qué observas al comparar estas dos distribuciones? ¿Por qué difieren?**
-
-*[Tu respuesta aquí]*
+*[Comenta lo que observas]*
 
 ---
 
-## Pregunta 3. Explorando $R^2$ con distintos errores
+## 3. Creando sus propios datos para indagar $R^2$.
 
-### 3a. $SD = 5$
+### a. Ejecute el siguiente código, muestre los resultados e interprete $R^2$.
 
 ```{r r2-sd5}
 set.seed(123)
 x        <- runif(100)
 error    <- rnorm(100, mean = 0, sd = 5)
 y        <- 2 + (5 * x) + error
-
-hist(y, main = "Distribución de Y (SD = 5)", col = "steelblue", border = "white")
+hist(y)
 
 regresion <- lm(y ~ x)
 summary(regresion)
 
-plot(x, y,
-     main = "Regresión con SD = 5",
-     xlab = "X", ylab = "Y",
-     pch = 19, col = "steelblue", frame = FALSE)
-abline(regresion, col = "red", lwd = 2)
+plot(x, y, main = "Main title",
+     xlab = "X axis title", ylab = "Y axis title",
+     pch = 19, frame = FALSE) +
+  abline(lm(y ~ x), col = "blue")
 ```
 
-**Interpreta el $R^2$ obtenido:**
+*[Interpretación de $R^2$]*
 
-*[Tu respuesta aquí]*
-
----
-
-### 3b. $SD = 15$
+### b. En el código anterior, modifique: $SD = 15$ e interprete $R^2$.
 
 ```{r r2-sd15}
-# COMPLETA: repite el código anterior pero con sd = 15
-
-set.seed(123)
-x     <- runif(100)
-error <- # TU CÓDIGO AQUÍ  (ahora sd = 15)
-y     <- # TU CÓDIGO AQUÍ
-
-# Tu histograma, regresión y gráfico aquí
-# TU CÓDIGO AQUÍ
+# TU CÓDIGO
 ```
 
-**Interpreta el $R^2$ con $SD = 15$:**
+*[Interpretación de $R^2$]*
+
+### c. Muestre que $R^2$ es menor con $SD = 15$ en el error (hint: use SST, SSR). ¿Esto quiere decir que es "peor" la segunda regresión para calcular $\hat{\beta}$ en términos de sesgo y precisión? ¿Por qué sí o por qué no?
+
+```{r demostracion-3c}
+# TU CÓDIGO
+```
 
 *[Tu respuesta aquí]*
 
 ---
 
-### 3c. Demostración formal: $R^2$ es menor con $SD = 15$
+## 4. Regresión lineal con datos de Wooldridge.
 
-```{r demostracion-3c}
-# COMPLETA: calcula SST, SSR y SSE para AMBAS regresiones
-# y muestra formalmente que R² es menor con SD=15
+### a. Ejecute los siguientes comandos en R-Studio y muestre los resultados:
 
-# Regresión con SD = 5
-set.seed(123); x5 <- runif(100); y5 <- 2 + 5*x5 + rnorm(100, 0, 5)
-reg5  <- lm(y5 ~ x5)
-
-# Regresión con SD = 15
-set.seed(123); x15 <- runif(100); y15 <- 2 + 5*x15 + rnorm(100, 0, 15)
-reg15 <- lm(y15 ~ x15)
-
-# TU CÓDIGO: calcula y compara SST, SSR, SSE para cada una
-```
-
-**Responde:**
-
-1. *¿Por qué $R^2$ es menor cuando el error tiene mayor varianza?*
-
-   *[Tu respuesta aquí]*
-
-2. *¿Significa esto que la segunda regresión estima $\hat{\beta}_1$ con más sesgo? ¿Por qué sí o por qué no?*
-
-   *[Tu respuesta — piensa en los supuestos de Gauss-Markov]*
-
----
-
-## Pregunta 4. Datos de Wooldridge: salarios y educación
-
-```{r wooldridge-setup}
-# Instala el paquete si es la primera vez:
-# install.packages("wooldridge")
+```{r wooldridge}
 library(wooldridge)
 data("wage1")
-# ?wage1   # Descomenta para ver la documentación de la base
-```
+?wage1
 
-```{r wooldridge-reg}
 wagereg <- lm(lwage ~ educ, data = wage1)
 summary(wagereg)
 ```
 
-### 4a. Interpretación de coeficientes
+### b. Interprete los coeficientes $\beta_0$ y $\beta_1$. ¿Es el signo de $\beta_1$ el esperado? ¿Por qué?
 
-**Interpreta $\hat{\beta}_0$ y $\hat{\beta}_1$:**
+*[Tu respuesta aquí]*
 
-*[$\hat{\beta}_0$: ...]*
+### c. Obtenga $R^2$ mediante el cálculo de $SST$, $SSE$, $SSR$.
 
-*[$\hat{\beta}_1$: ...]*
+```{r r2-wooldridge}
+# TU CÓDIGO
+```
 
-**¿Es el signo de $\hat{\beta}_1$ el esperado? ¿Por qué?**
+### d. ¿Bajo qué supuestos, de los estudiados en clase hasta ahora, podemos interpretar $\beta_1$ como el efecto de la educación en ingresos? Describa cada uno formalmente.
+
+*[Tu respuesta aquí]*
+
+### e. ¿Qué supuesto estándar estamos violando y por qué?
+
+*[Tu respuesta aquí]*
+
+### f. Demuestre formalmente el sesgo del estimador $\beta_1$ bajo violación de ese supuesto.
+
+*[Tu demostración en LaTeX aquí]*
+
+---
+
+## 5. Utilizando datos de 2018 sobre ventas de casas en México, la siguiente ecuación es estimada, referente al precio de la casa y en relación con la distancia, en kilómetros, a un basurero municipal recientemente instalado:
+
+$$\log(Price) = 9.40 + 0.312 \,(dist)$$
+$$n = 135 \qquad R^2 = 0.162$$
+
+### a. Interprete el coeficiente de *dist*.
+
+*[Tu respuesta aquí]*
+
+### b. ¿Cree que esta estimación nos ofrece un efecto insesgado de la elasticidad *"ceteris paribus"* del precio respecto a la distancia? ¿Intuitivamente explique por qué? (piense en la decisión del municipio de colocar el basurero)
+
+*[Tu respuesta aquí]*
+
+### c. ¿Qué otros factores sobre la casa pueden afectar su precio dado $Cov(u, dist) \neq 0$?
 
 *[Tu respuesta aquí]*
 
 ---
 
-### 4b. $R^2$ a partir de SST, SSE, SSR
-
-```{r r2-wooldridge}
-# COMPLETA: calcula R² manualmente para esta regresión
-
-# TU CÓDIGO AQUÍ
-```
-
----
-
-### 4c. Supuestos necesarios para causalidad
-
-**¿Bajo qué supuestos de Gauss-Markov podemos interpretar $\hat{\beta}_1$ como el efecto causal de la educación en ingresos?**
-
-*Describe cada supuesto formalmente (usar notación LaTeX/Markdown):*
-
-1. **SLR.1 — Linealidad en los parámetros:** ...
-2. **SLR.2 — Muestra aleatoria:** ...
-3. **SLR.3 — Variación en X:** ...
-4. **SLR.4 — Media condicional cero:** $E[\mu | X] = 0$ porque ...
-5. **SLR.5 — Homocedasticidad:** ...
-
----
-
-### 4d. Supuesto violado
-
-**¿Qué supuesto estándar se viola en esta regresión y por qué?**
-
-*[Tu respuesta: ¿qué variables omitidas podrían estar correlacionadas con `educ`?]*
-
----
-
-### 4e. Demostración formal del sesgo
-
-**Demuestra formalmente el sesgo de $\hat{\beta}_1$ cuando $E[\mu|X] \neq 0$:**
-
-*Hint: parte de $\hat{\beta}_1 = \frac{\sum(x_i - \bar{x})y_i}{\sum(x_i - \bar{x})^2}$, sustituye $y_i = \beta_0 + \beta_1 x_i + \mu_i$ y toma esperanza.*
-
-[Tu demostración en  LaTeX/Markdown aquí]
-
----
-
-## Pregunta 5. Precios de casas y basureros
-
-La siguiente ecuación es estimada con datos de 2018 sobre ventas de casas en México:
-
-$$\widehat{\log(\text{Price})} = 9.40 + 0.312 \cdot dist \quad (n = 135,\ R^2 = 0.162)$$
-
-donde $dist$ es la distancia en kilómetros a un basurero municipal.
-
-### 5a. Interpretación del coeficiente
-
-*[Interpreta $\hat{\beta}_1 = 0.312$. Recuerda que la variable dependiente está en logaritmo.]*
-
----
-
-### 5b. ¿Efecto causal o sesgo?
-
-**¿Crees que esta estimación ofrece un efecto insesgado de la distancia al basurero sobre el precio?**
-
-*[Argumenta intuitivamente. Piensa: ¿quién decide dónde colocar el basurero? ¿Es aleatoria esa decisión?]*
-
----
-
-### 5c. Variables omitidas
-
-**Lista al menos 3 factores que podrían afectar el precio de la casa y que también correlacionan con $dist$, generando $\text{Cov}(u, dist) \neq 0$:**
-
-| Factor omitido | Efecto esperado en precio | ¿Correlaciona con dist? ¿Cómo? |
-|----------------|--------------------------|-------------------------------|
-| 1.             |                          |                               |
-| 2.             |                          |                               |
-| 3.             |                          |                               |
-
----
-
 ```{r session-info, echo=FALSE}
-# No modificar — registra tu entorno de trabajo
-cat("Sesión completada el:", format(Sys.time(), "%Y-%m-%d %H:%M"), "\n")
-sessionInfo()
+cat("Entregado:", format(Sys.time(), "%Y-%m-%d %H:%M"), "\n")
 ```
