@@ -1,19 +1,21 @@
 """
 Tutor Socrático LECO — Dr. Francisco Cabrera — CIDE
 Responde comentarios en GitHub usando Claude como tutor socrático.
-Se activa cuando un estudiante escribe @leco-bot en un Issue o PR.
+Se activa cuando un estudiante escribe @leco-bot en un Issue.
+El conteo de consultas se hace leyendo los comentarios del Issue — sin escribir archivos.
 """
 
 import os
-import json
 import anthropic
 from github import Github
+from datetime import date
 
 # ─────────────────────────────────────────────
 # CONFIGURACIÓN
 # ─────────────────────────────────────────────
 
-MAX_CONSULTAS_POR_DIA = 5  # Límite de consultas por estudiante por día
+MAX_CONSULTAS_POR_DIA = 5
+BOT_USERNAME = "github-actions[bot]"
 
 SYSTEM_PROMPT = """
 Eres el tutor de Econometría del curso LECO del CIDE, diseñado por el Dr. Francisco Cabrera. Tu rol es ayudar a los estudiantes a desarrollar habilidades de pensamiento econométrico y programación en R — pero NUNCA resolviendo los problemas por ellos.
@@ -84,56 +86,25 @@ El curso cubre: derivación de OLS, propiedades del estimador, R², supuestos de
 """
 
 # ─────────────────────────────────────────────
-# FUNCIONES DE CONTROL DE USO
+# CONTEO DE CONSULTAS — lee comentarios del Issue
 # ─────────────────────────────────────────────
 
-def cargar_conteo(repo, usuario):
+def consultas_hoy(issue, usuario):
     """
-    Lee el archivo de conteo de consultas desde el repositorio.
-    El archivo vive en .github/uso/conteo.json y no es visible para estudiantes.
+    Cuenta cuántas veces respondió el bot a este usuario hoy
+    leyendo los comentarios existentes del Issue.
+    No requiere escribir ningún archivo.
     """
-    try:
-        contents = repo.get_contents(".github/uso/conteo.json")
-        data = json.loads(contents.decoded_content.decode())
-    except Exception:
-        data = {}
-
-    return data, contents if "contents" in dir() else None
-
-
-def guardar_conteo(repo, data, file_obj):
-    """Actualiza el archivo de conteo en el repositorio."""
-    content = json.dumps(data, indent=2)
-    if file_obj:
-        repo.update_file(
-            ".github/uso/conteo.json",
-            "Actualiza conteo de consultas",
-            content,
-            file_obj.sha
-        )
-    else:
-        repo.create_file(
-            ".github/uso/conteo.json",
-            "Crea conteo de consultas",
-            content
-        )
-
-
-def consultas_hoy(data, usuario):
-    """Retorna el número de consultas que el usuario ha hecho hoy."""
-    from datetime import date
     hoy = str(date.today())
-    return data.get(usuario, {}).get(hoy, 0)
-
-
-def registrar_consulta(data, usuario):
-    """Incrementa el contador de consultas del usuario para hoy."""
-    from datetime import date
-    hoy = str(date.today())
-    if usuario not in data:
-        data[usuario] = {}
-    data[usuario][hoy] = data[usuario].get(hoy, 0) + 1
-    return data
+    conteo = 0
+    for comment in issue.get_comments():
+        # El bot responde con una línea que incluye el usuario y la fecha
+        if (BOT_USERNAME in comment.user.login or
+                "github-actions" in comment.user.login):
+            if hoy in comment.created_at.strftime("%Y-%m-%d"):
+                if f"@{usuario}" in comment.body or usuario in comment.body:
+                    conteo += 1
+    return conteo
 
 
 # ─────────────────────────────────────────────
@@ -142,39 +113,40 @@ def registrar_consulta(data, usuario):
 
 def main():
     # Leer variables de entorno
-    api_key       = os.environ["ANTHROPIC_API_KEY"]
-    github_token  = os.environ["GITHUB_TOKEN"]
-    comment_body  = os.environ["COMMENT_BODY"]
-    comment_user  = os.environ["COMMENT_USER"]
-    issue_number  = int(os.environ["ISSUE_NUMBER"])
-    repo_name     = os.environ["REPO_FULL_NAME"]
+    api_key      = os.environ["ANTHROPIC_API_KEY"]
+    github_token = os.environ["GITHUB_TOKEN"]
+    comment_body = os.environ["COMMENT_BODY"]
+    comment_user = os.environ["COMMENT_USER"]
+    issue_number = int(os.environ["ISSUE_NUMBER"])
+    repo_name    = os.environ["REPO_FULL_NAME"]
 
     # Conectar a GitHub
-    gh   = Github(github_token)
-    repo = gh.get_repo(repo_name)
+    gh    = Github(github_token)
+    repo  = gh.get_repo(repo_name)
     issue = repo.get_issue(issue_number)
 
-    # Limpiar el mensaje (quitar la mención @leco-bot)
+    # Limpiar el mensaje
     pregunta = comment_body.replace("@leco-bot", "").strip()
 
     if not pregunta:
         issue.create_comment(
-            "👋 Hola. Escribe tu pregunta después de `@leco-bot`. "
-            "Recuerda incluir las 3 partes del protocolo: "
-            "qué intentas hacer, qué error obtuviste, y qué ya intentaste."
+            f"👋 Hola @{comment_user}. Escribe tu pregunta después de `@leco-bot`.\n\n"
+            f"Recuerda incluir las 3 partes del protocolo:\n"
+            f"1. Qué intentas hacer\n"
+            f"2. Qué error obtuviste\n"
+            f"3. Qué ya intentaste"
         )
         return
 
     # Verificar límite de consultas
-    data, file_obj = cargar_conteo(repo, comment_user)
-    n_consultas = consultas_hoy(data, comment_user)
+    n_consultas = consultas_hoy(issue, comment_user)
 
     if n_consultas >= MAX_CONSULTAS_POR_DIA:
         issue.create_comment(
             f"@{comment_user} Has alcanzado el límite de **{MAX_CONSULTAS_POR_DIA} consultas** "
             f"por hoy. El límite se reinicia mañana.\n\n"
             f"Mientras tanto: revisa tus notas del laboratorio, consulta con tu compañero, "
-            f"o regresa al .Rmd y lee los comentarios de los bloques. "
+            f"o regresa al `.Rmd` y lee los comentarios de los bloques. "
             f"El aprendizaje también ocurre cuando te alejas del problema. 💡"
         )
         return
@@ -184,7 +156,7 @@ def main():
 
     message = client.messages.create(
         model="claude-haiku-4-5-20251001",
-        max_tokens=350,  # Respuestas cortas = socrático + económico
+        max_tokens=350,
         system=SYSTEM_PROMPT,
         messages=[
             {"role": "user", "content": pregunta}
@@ -192,19 +164,14 @@ def main():
     )
 
     respuesta = message.content[0].text
-
-    # Registrar la consulta
-    data = registrar_consulta(data, comment_user)
-    guardar_conteo(repo, data, file_obj)
-
-    # Calcular consultas restantes
-    restantes = MAX_CONSULTAS_POR_DIA - consultas_hoy(data, comment_user)
+    restantes = MAX_CONSULTAS_POR_DIA - n_consultas - 1
 
     # Publicar respuesta en GitHub
     issue.create_comment(
         f"{respuesta}\n\n"
         f"---\n"
-        f"*🤖 Tutor LECO — Consultas restantes hoy: **{restantes}/{MAX_CONSULTAS_POR_DIA}***"
+        f"*🤖 Tutor LECO — @{comment_user} — "
+        f"Consultas restantes hoy: **{restantes}/{MAX_CONSULTAS_POR_DIA}***"
     )
 
 
