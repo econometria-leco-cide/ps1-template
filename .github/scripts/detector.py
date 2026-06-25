@@ -20,8 +20,8 @@ from github import Github
 # CONFIGURACIÓN — ajusta estos umbrales
 # ─────────────────────────────────────────────
 
-UMBRAL_LINEAS       = 40   # Líneas nuevas de código en un commit = sospechoso
-UMBRAL_RATIO        = 0.6  # Si >60% del archivo cambió de golpe = sospechoso
+UMBRAL_LINEAS       = 30   # Líneas nuevas de código en un commit = sospechoso
+UMBRAL_RATIO        = 0.5  # Si >60% del archivo cambió de golpe = sospechoso
 MIN_COMMITS_PREVIOS = 1    # Si es el primer commit con mucho código = sospechoso
 
 # ─────────────────────────────────────────────
@@ -156,7 +156,7 @@ Si trabajaste este código tú mismo, agrega comentarios en español que expliqu
 
 Si tienes dudas sobre algún ejercicio, usa `@leco-bot` en tu Issue de consultas.
 
-*Este mensaje fue generado automáticamente por el sistema de seguimiento del curso LECO.*
+*Este mensaje fue generado automáticamente por el sistema de seguimiento del curso de Econometría LECO-CIDE.*
 """
 
 # ─────────────────────────────────────────────
