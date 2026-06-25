@@ -15,6 +15,8 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 
 **Entregable**: Un archivo PDF (R-Markdown) contestando correctamente a las preguntas abajo presentadas, así como el archivo `.Rmd`. Ambos archivos deben subirse a GitHub antes de la fecha límite, grabados con su nombre.
 
+> **📋 Antes de comenzar:** Lee el archivo `reglas_generales_course.md` que está en tu repositorio. Contiene las reglas de entrega, commits, uso del bot y peer review que aplican a todos los problem sets.
+
 ---
 
 > **⚙️ Paso 1 — Cómo crear tu proyecto en RStudio (hazlo una sola vez)**
@@ -25,7 +27,7 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 > 4. Pega la URL → elige una carpeta en tu computadora → click `Create Project`
 > 5. Verifica que ves `ps1_estudiante.Rmd` en el panel de archivos (esquina inferior derecha)
 >
-> A partir de aquí, **siempre abre el Problem Set (PS)  desde ese proyecto** (`File` → `Open Project`), no desde el archivo directamente.
+> A partir de aquí, **siempre abre el PS desde ese proyecto** (`File` → `Open Project`), no desde el archivo directamente.
 
 ---
 
@@ -33,33 +35,43 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 >
 > Guardar en tu computadora (`Ctrl+S`) **no** sube los cambios a GitHub. Para que el profesor y el asistente vean tu trabajo debes hacer:
 >
+> **Opción A — Panel Git de RStudio (más fácil):**
 > 1. Panel **Git** en RStudio (esquina superior derecha) → verás tus archivos modificados con una **M**
 > 2. Marca el **checkbox** junto a `ps1_estudiante.Rmd` (y el `.pdf` si ya compilaste)
 > 3. Click **Commit** → escribe un mensaje descriptivo, por ejemplo: `"avance P2b y P2c"`
 > 4. Click **Push** → tus cambios aparecen en GitHub
+>
+> **Opción B — Terminal de RStudio (si el panel Git no funciona):**
+> 1. Ve a la pestaña **Terminal** (junto a la pestaña Console, panel inferior)
+> 2. Copia y pega estos comandos uno por uno:
+> ```
+> git add ps1_estudiante.Rmd
+> git commit -m "avance P2b y P2c"
+> git push origin main
+> ```
 >
 > **Recomendación:** haz commit y push al terminar cada pregunta, no solo al final.
 > Así queda registro de tu progreso y puedes recuperar versiones anteriores si algo falla.
 
 ---
 
-> **📌 Paso 3 — Protocolo de uso de IA (Claude)**
+> **📌 Paso 3 — Reglas de uso de IA**
 >
-> Antes de consultar al tutor IA, escribe en un comentario dentro de tu bloque de código:
+> **Comenta tu código en español.** Todo bloque de código debe incluir comentarios que expliquen tu razonamiento. Por ejemplo:
+> ```
+> # Calculo SST como la variación total de Y respecto a su media
+> sst <- sum((y - mean(y))^2)
+> ```
 >
-> ```
-> # CONSULTA IA
-> # 1. Qué intento hacer:
-> # 2. Error o resultado inesperado que obtuve:
-> # 3. Lo que ya intenté:
-> ```
-> Tienes **5 consultas por sesión**. La IA no escribirá tu código — te hará preguntas para que llegues a la respuesta tú mismo.
+> **Usa el tutor @leco-bot en GitHub.** Abre un Issue en tu repositorio llamado `Consultas PS1` y escribe ahí tus dudas mencionando `@leco-bot`. Tienes 5 consultas por día.
+>
+> **⚠️ Sistema de detección automática.** Cada push que haces es analizado automáticamente. El sistema detecta saltos grandes de código en un solo commit, código sin comentarios en español, y patrones inconsistentes con tu historial. Las alertas son visibles para el profesor y el asistente. La mejor evidencia de que el trabajo es tuyo son tus comentarios en español, tus consultas al bot y tu historial de commits.
 
 ---
 
 ## 1. Derive OLS utilizando las condiciones de primer orden que surgen de $\sum(y_i - \hat{y}_i)^2 = 0$
 
-*[Tu derivación aquí — usa LaTeX]*
+*[Tu derivación aquí — usa LaTeX/Markdown]*
 
 ---
 
@@ -206,7 +218,7 @@ summary(wagereg)
 
 ### f. Demuestre formalmente el sesgo del estimador $\beta_1$ bajo violación de ese supuesto.
 
-*[Tu demostración en LaTeX aquí]*
+*[Tu demostración en LaTeX/Markdown aquí]*
 
 ---
 
