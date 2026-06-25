@@ -3,7 +3,7 @@
 
 ---
 
-## Sobre los problem sets
+## Sobre los problem sets (PS)
 
 El curso tiene **6 problem sets** a lo largo del semestre. Cada PS está diseñado para que apliques los conceptos vistos en clase usando datos reales y simulados en R. Los PS no son opcionales ni recuperables — forman parte central de tu evaluación.
 
@@ -13,7 +13,7 @@ El curso tiene **6 problem sets** a lo largo del semestre. Cada PS está diseña
 
 Trabajarás con tres herramientas durante todo el semestre:
 
-**RStudio** es donde escribes y ejecutas tu código. Cada PS viene en formato R Markdown (`.Rmd`), que combina código en R, texto y fórmulas en LaTeX en un solo archivo. Al compilarlo (`Knit → PDF`) produces tu entregable.
+**RStudio** es donde escribes y ejecutas tu código. Cada PS viene en formato R Markdown (`.Rmd`), que combina código en R, texto y fórmulas en LaTeX/Markdown en un solo archivo. Al compilarlo (`Knit → PDF`) produces tu entregable.
 
 **GitHub** es donde entregas tu trabajo y donde queda registro de tu proceso. Cada PS tiene su propio repositorio privado que el profesor y el asistente pueden ver en tiempo real. No se aceptan entregas por correo.
 
@@ -31,7 +31,7 @@ Cada entrega debe incluir:
 - El archivo `.Rmd` con tu código y respuestas completas
 - El archivo `.pdf` generado por `Knit → PDF`
 
-Un `.Rmd` que no compile sin errores descuenta 10 puntos del total del PS.
+Un `.Rmd` que no compile sin errores descuenta 10/100 puntos del total del PS.
 
 **3. Commits mínimos**
 Debes realizar **mínimo 3 commits en días distintos** antes de tu entrega final. Los commits deben tener mensajes descriptivos que reflejen tu avance. Un repositorio con un solo commit la noche de la entrega recibe 0 puntos en el criterio de proceso, independientemente de la calidad del resultado.
@@ -81,12 +81,31 @@ El uso de herramientas de IA externas (ChatGPT, Claude, Gemini, etc.) está **pe
 - Pegar el enunciado de una pregunta y usar la respuesta de la IA directamente
 - Entregar código o demostraciones generadas íntegramente por IA
 
+**Comentarios obligatorios en español**
+Todo bloque de código debe incluir comentarios en español que expliquen tu razonamiento. Por ejemplo:
+```r
+# Calculo SST como la variación total de Y respecto a su media
+sst <- sum((y - mean(y))^2)
+```
+Código sin comentarios en español es una señal de que fue generado por IA externa.
+
+**⚠️ Sistema de detección automática**
+El sistema del curso analiza automáticamente cada push que haces a GitHub. Si detecta alguna de las siguientes señales, abre una alerta en tu repositorio visible para el profesor y el asistente:
+
+- Salto grande de líneas de código en un solo commit
+- Código nuevo sin comentarios en español
+- Porcentaje alto del archivo que cambia de golpe
+- Primer commit con código completo sin historial previo
+
+El sistema no acusa — pero sí registra y notifica. La mejor evidencia de que el trabajo es tuyo son tus comentarios en español, tus consultas al bot y tu historial de commits.
+
 **Evidencia de autoría**
 El historial de commits, las consultas al bot y el patrón de trabajo a lo largo del tiempo son evidencia de que el trabajo es tuyo. Código de calidad perfecta entregado en un solo commit sin ninguna consulta al bot ni al asistente es una señal de alerta.
 
 El uso de IA sin comprensión se detecta en el examen. Los PS son práctica — los exámenes son individuales, en papel, sin computadora.
 
 ---
+
 ## Peer Review
 
 El laboratorista asigna parejas antes de cada nuevo PS. Después de cada entrega, tienes **2 días** para revisar el trabajo de tu compañero/a y él/ella revisa el tuyo.
@@ -135,6 +154,7 @@ El asistente no resuelve los ejercicios fuera del horario de laboratorio. Las du
 |---|---|
 | Commits antes de la entrega final | 3 en días distintos |
 | Mensajes de commit | Descriptivos en todos |
+| Comentarios en código | En español en todos los bloques |
 | Consultas al bot documentadas | 3 por PS |
 | Protocolo de consulta | Completo en cada consulta |
 | Archivos entregados | `.Rmd` + `.pdf` que compila |
@@ -143,6 +163,5 @@ El asistente no resuelve los ejercicios fuera del horario de laboratorio. Las du
 | Respuesta a comentarios recibidos | Obligatoria |
 
 ---
----
 
-*Econometría LECO — CIDE | Cualquier duda sobre estas reglas, consúltala en la primera sesión de laboratorio.*
+*Econometría LECO — CIDE | Cualquier duda sobre estas reglas, consúltala en la primera sesión de laboratorio o con el profesor*
