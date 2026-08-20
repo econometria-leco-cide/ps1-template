@@ -63,7 +63,7 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 > sst <- sum((y - mean(y))^2)
 > ```
 >
-> **Usa el tutor @leco-bot en GitHub.** Abre un *Issue* (en la pestaña de github *Issue*) en tu repositorio. Nombralo `Consultas PS1`. Luego de crear el issue  `Consultas PS1` escribes ahí tus dudas mencionando `@leco-bot`. Tienes 5 consultas por día.
+> **Usa el tutor @leco-bot en GitHub.** Abre un *Issue* (en la pestaña de github *Issue*) en tu repositorio. Nombralo `Consultas PS1`. Luego de crear el issue  `Consultas PS1` escribe como comentario tu dudas mencionando `@leco-bot`. Tienes 5 consultas por día.
 > Por ejemplo: 
 >@leco-bot
 >1. Qué intento hacer: calcular R² manualmente en P2f
