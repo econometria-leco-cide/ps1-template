@@ -15,14 +15,14 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 
 **Entregable**: Un archivo PDF (R-Markdown) contestando correctamente a las preguntas abajo presentadas, así como el archivo `.Rmd`. Ambos archivos deben subirse a GitHub antes de la fecha límite, grabados con su nombre.
 
-> **📋 Antes de comenzar:** Lee el archivo `reglas_generales_course.md` que está en tu repositorio. Contiene las reglas de entrega, commits, uso del bot y peer review que aplican a todos los problem sets.
+> **📋 Antes de comenzar:** Lee el archivo `reglas_generales_course.md` que está en tu repositorio. Contiene las reglas de entrega, commits y uso del bot que aplican a todos los problem sets.
 
 ---
 
 > **⚙️ Paso 1 — Cómo crear tu proyecto en RStudio (hazlo una sola vez)**
 >
 > 1. Acepta la tarea en el link que te compartió el profesor → se crea tu repositorio personal en GitHub
-> 2. Entra a tu repositorio → click en el botón verde **"Code"** → copia la URL (termina en `.git`)
+> 2. Entra a tu repositorio → haz clic en el botón verde **"Code"** → copia la URL (termina en `.git`)
 > 3. Abre RStudio → `File` → `New Project` → `Version Control` → `Git`
 > 4. Pega la URL → elige una carpeta en tu computadora → click `Create Project`
 > 5. Verifica que ves `ps1_estudiante.Rmd` en el panel de archivos (esquina inferior derecha)
@@ -33,7 +33,7 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 
 > **📤 Paso 2 — Cómo guardar tu avance en GitHub (hazlo cada vez que avances)**
 >
-> Guardar en tu computadora (`Ctrl+S`) **no** sube los cambios a GitHub. Para que el profesor y el asistente vean tu trabajo debes hacer:
+> Guardar en tu computadora (`Ctrl+S`) **no** sube los cambios a GitHub. Para que el profesor y el asistente vean el avance de tu trabajo, debes hacer:
 >
 > **Opción A — Panel Git de RStudio (más fácil):**
 > 1. Panel **Git** en RStudio (esquina superior derecha) → verás tus archivos modificados con una **M**
