@@ -39,7 +39,7 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 > 1. Panel **Git** en RStudio (esquina superior derecha) → verás tus archivos modificados con una **M**
 > 2. Marca el **checkbox** junto a `ps1_estudiante.Rmd` (y el `.pdf` si ya compilaste)
 > 3. Click **Commit** → escribe un mensaje descriptivo, por ejemplo: `"avance P2b y P2c"`
-> 4. Click **Push** → tus cambios aparecen en GitHub
+> 4. Click **Push** → tus cambios aparecen en GitHub.
 >
 > **Opción B — Terminal de RStudio (si el panel Git no funciona):**
 > 1. Ve a la pestaña **Terminal** (junto a la pestaña Console, panel inferior)
@@ -63,7 +63,12 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 > sst <- sum((y - mean(y))^2)
 > ```
 >
-> **Usa el tutor @leco-bot en GitHub.** Abre un Issue en tu repositorio llamado `Consultas PS1` y escribe ahí tus dudas mencionando `@leco-bot`. Tienes 5 consultas por día.
+> **Usa el tutor @leco-bot en GitHub.** Abre un *Issue* (en la pestaña de github *Issue*) en tu repositorio. Nombralo `Consultas PS1`. Luego de crear el issue  `Consultas PS1` escribes ahí tus dudas mencionando `@leco-bot`. Tienes 5 consultas por día.
+> Por ejemplo: 
+>@leco-bot
+>1. Qué intento hacer: calcular R² manualmente en P2f
+>2. Error que obtuve: me sale un valor negativo
+>3. Lo que ya intenté: usé la fórmula SSE/SST
 >
 > **⚠️ Sistema de detección automática.** Cada push que haces es analizado automáticamente. El sistema detecta saltos grandes de código en un solo commit, código sin comentarios en español, y patrones inconsistentes con tu historial. Las alertas son visibles para el profesor y el asistente. La mejor evidencia de que el trabajo es tuyo son tus comentarios en español, tus consultas al bot y tu historial de commits.
 
